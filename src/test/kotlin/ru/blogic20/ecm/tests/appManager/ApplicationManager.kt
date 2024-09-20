@@ -1,4 +1,4 @@
-package appManager
+package ru.blogic20.ecm.tests.appManager
 
 import org.openqa.selenium.firefox.FirefoxDriver
 import java.time.Duration
@@ -20,7 +20,7 @@ open class ApplicationManager {
 
 
     fun exit() {
-//        driver.quit()
+        driver.quit()
     }
 
 }

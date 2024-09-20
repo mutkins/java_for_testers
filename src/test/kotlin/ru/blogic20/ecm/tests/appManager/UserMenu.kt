@@ -1,4 +1,4 @@
-package appManager
+package ru.blogic20.ecm.tests.appManager
 
 import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver

@@ -1,4 +1,4 @@
-package tests
+package ru.blogic20.ecm.tests
 import org.testng.annotations.Test
 
 class DocumentSearch: BaseTest() {

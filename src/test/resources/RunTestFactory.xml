@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Акватесты" verbose="0" >
+    <test name="Тест ЮЗДО" parallel="methods" thread-count="1">
+        <classes>
+            <class name="ru.blogic20.ecm.tests.TestFactory">
+            </class>
+        </classes>
+    </test>
+</suite>
