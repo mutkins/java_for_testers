@@ -23,10 +23,22 @@ tasks.withType<Test> {
 }
 
 tasks.register<Test>("testFactory") {
+    systemProperties["browser"] = project.findProperty("browser")?: "firefox"
+    systemProperties["stand"] = project.findProperty("stand")?: "244"
+
     useTestNG {
         suites("data/suites/RunTestFactory.xml") // Используем правильные кавычки
     }
+
 }
+tasks.register<Test>("CheckAdminProfile") {
+    systemProperties["browser"] = project.findProperty("browser")?: "firefox"
+    systemProperties["stand"] = project.findProperty("stand")?: "244"
+    useTestNG {
+        suites("data/suites/CheckAdminProfile.xml") // Используем правильные кавычки
+    }
+}
+
 
 sourceSets {
     test {

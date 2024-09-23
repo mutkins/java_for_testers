@@ -1,5 +1,6 @@
 package ru.blogic20.ecm.tests
 
+import org.example.configuration.Configuration
 import ru.blogic20.ecm.tests.appManager.ApplicationManager
 import org.testng.annotations.AfterClass
 import org.testng.annotations.AfterMethod
@@ -13,9 +14,11 @@ open class BaseTest {
 
     @BeforeSuite
     fun userInit(){
+        println("BeforeSuite initialization")
         if (UserStore.users.isEmpty()) {
             UserStore.init()
         }
+
     }
     @BeforeMethod
     fun setUp() {

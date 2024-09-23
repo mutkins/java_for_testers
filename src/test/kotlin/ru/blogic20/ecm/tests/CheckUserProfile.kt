@@ -19,7 +19,7 @@ class CheckUserProfile: BaseTest() {
 
     @DataProvider
     fun userDataProvider(): Iterator<Array<User>>{
-var list = mutableListOf<Array<User>>()
+        val list = mutableListOf<Array<User>>()
         UserStore.users.forEach{
             list.add(arrayOf(it))
         }

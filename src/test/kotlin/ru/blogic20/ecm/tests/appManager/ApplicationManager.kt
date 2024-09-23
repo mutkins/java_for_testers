@@ -12,6 +12,8 @@ open class ApplicationManager {
     lateinit var userMenu: UserMenu
     lateinit var mainPage: MainPage
     fun init() {
+        println("DRIVER INIT")
+        println("System.getProperty(browser)=${System.getProperty("browser")}")
         driver = when (System.getProperty("browser")){
              "firefox"-> FirefoxDriver()
             "chrome" -> ChromeDriver()
