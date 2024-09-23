@@ -14,10 +14,25 @@ dependencies {
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions {
-        jvmTarget = "11"
+    kotlin {
+        jvmToolchain(11)
     }
 }
 tasks.withType<Test> {
     useTestNG()
+}
+
+tasks.register<Test>("testFactory") {
+    useTestNG {
+        suites("data/suites/RunTestFactory.xml") // Используем правильные кавычки
+    }
+}
+
+sourceSets {
+    test {
+        resources {
+            // Добавляем вашу папку data/suites
+            srcDir("data/suites")
+        }
+    }
 }
