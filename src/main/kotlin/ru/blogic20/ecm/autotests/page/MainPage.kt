@@ -1,4 +1,4 @@
-package ru.blogic20.ecm.tests.appManager
+package ru.blogic20.ecm.autotests.page
 
 import org.openqa.selenium.By
 import org.openqa.selenium.Keys
@@ -11,10 +11,10 @@ import java.time.Duration
 import java.util.function.Function
 
 
-class MainPage(driver: WebDriver): HelperBase(driver) {
+class MainPage(driver: WebDriver): WebPage(driver) {
 
     fun goToMainPage(){
-        driver.get("http://172.19.199.244/share/page/arm?code=SBER_NPF")
+        driver.get(System.getProperty("baseUrl"))
         Thread.sleep(1000)
     }
 
@@ -43,5 +43,12 @@ class MainPage(driver: WebDriver): HelperBase(driver) {
         openUserMenu()
         driver.findElement(By.xpath("//*[.='Выход']")).click()
         Thread.sleep(1000)
+    }
+
+    fun checkUserFullName(name: String) {
+        Assert.assertEquals(
+            driver.findElement(By.xpath("//*[@class='namelabel']")).text,
+            name
+        )
     }
 }

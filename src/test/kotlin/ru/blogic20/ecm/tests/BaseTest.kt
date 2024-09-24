@@ -1,7 +1,7 @@
 package ru.blogic20.ecm.tests
 
-import org.example.configuration.Configuration
-import ru.blogic20.ecm.tests.appManager.ApplicationManager
+import ru.blogic20.ecm.autotests.configuration.Configuration
+import ru.blogic20.ecm.autotests.appManager.ApplicationManager
 import org.testng.annotations.AfterClass
 import org.testng.annotations.AfterMethod
 import org.testng.annotations.AfterSuite
