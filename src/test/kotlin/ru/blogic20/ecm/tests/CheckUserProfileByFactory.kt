@@ -11,6 +11,7 @@ class CheckUserProfileByFactory(var user: User): BaseTest() {
         app.loginPage.login(user.login, user.password)
         app.mainPage.openUserMenu()
         app.mainPage.checkUserFullName(user.display_name)
+        app.mainPage.logout()
     }
 
 

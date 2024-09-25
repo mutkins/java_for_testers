@@ -1,13 +1,7 @@
 package ru.blogic20.ecm.tests
 
-import ru.blogic20.ecm.autotests.configuration.Configuration
-import ru.blogic20.ecm.autotests.appManager.ApplicationManager
-import org.testng.annotations.AfterClass
-import org.testng.annotations.AfterMethod
-import org.testng.annotations.AfterSuite
-import org.testng.annotations.BeforeClass
-import org.testng.annotations.BeforeMethod
-import org.testng.annotations.BeforeSuite
+import org.testng.annotations.*
+import ru.blogic20.ecm.autotests.ApplicationManager
 import ru.blogic20.ecm.autotests.datastore.UserStore
 
 open class BaseTest {
@@ -22,16 +16,18 @@ open class BaseTest {
     }
     @BeforeMethod
     fun setUp() {
+        app = ApplicationManager()
         app.init()
     }
 
     @AfterMethod
     fun tearDown() {
         app.exit()
+
     }
 
     companion object{
-        val app = ApplicationManager()
+        lateinit var app: ApplicationManager
     }
 
 }

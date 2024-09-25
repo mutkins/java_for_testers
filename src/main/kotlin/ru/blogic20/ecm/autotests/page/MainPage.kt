@@ -13,42 +13,59 @@ import java.util.function.Function
 
 class MainPage(driver: WebDriver): WebPage(driver) {
 
+    val userMenuPopUp = "//*[@id='HEADER_USER_MENU_POPUP_text']"
+    val userMenuProfile = "//*[@id='HEADER_USER_MENU_PROFILE_text']"
+    val notificationsIcon = "//div[@title='Уведомления']"
+    val notificationsPopUpTitle = "//*[@aria-labelledby='NOTIFICATIONS_BOX_text']//*[@class='alf-menu-group-title']"
+    val simpleSearchField = "//*[@placeholder='Поиск по таблице' and not(ancestor::div[contains(@class,'hidden1')])]"
+    val firstRowInDocTable = "//*[@id='arm-documents-grid']//tbody[@tabindex='0']//tr[1]//td[3]//a"
+    val logoutButton = "//*[.='Выход']"
+    val userFullNameTitle = "//*[@class='namelabel']"
+    val elementByInnerText = "//*[.='%1%']"
+    val elementByName = "//*[@name='%1%']"
+
     fun goToMainPage(){
-        driver.get(System.getProperty("baseUrl"))
-        Thread.sleep(1000)
+        navigateTo(System.getProperty("baseUrl"))
     }
 
     fun openUserMenu() {
-        driver.findElement(By.xpath("//*[@id='HEADER_USER_MENU_POPUP_text']")).click()
-        Thread.sleep(1000)
-        driver.findElement(By.xpath("//*[@id='HEADER_USER_MENU_PROFILE_text']")).click()
+        click(userMenuPopUp)
+        click(userMenuProfile)
     }
     fun notificationCheck(){
-        driver.findElement(By.xpath("//div[@title='Уведомления']")).click()
-        Assert.assertEquals(driver.findElement((By.xpath("//*[@aria-labelledby='NOTIFICATIONS_BOX_text']//*[@class='alf-menu-group-title']"))).text,
+        click(notificationsIcon)
+        Assert.assertEquals(
+            findElement(notificationsPopUpTitle).text,
             "Уведомления")
     }
     fun simpleSearch(text: String){
-        fillField(text,"//*[@placeholder='Поиск по таблице' and not(ancestor::div[contains(@class,'hidden1')])]")
-        getElement("//*[@placeholder='Поиск по таблице' and not(ancestor::div[contains(@class,'hidden1')])]").sendKeys(Keys.RETURN)
+        fillField(text,simpleSearchField)
+        findElement(simpleSearchField).sendKeys(Keys.RETURN)
 
     }
     fun openDocFromDocTable(fileName: String){
-        getElement("//*[@id='arm-documents-grid']//tbody[@tabindex='0']//tr[1]//td[4]//*[.='" + "filename.pdf']")
-        getElement("//*[@id='arm-documents-grid']//tbody[@tabindex='0']//tr[1]//td[3]//a").click()
+        click(firstRowInDocTable)
     }
 
     fun logout(){
-        Thread.sleep(1000)
-        openUserMenu()
-        driver.findElement(By.xpath("//*[.='Выход']")).click()
-        Thread.sleep(1000)
+        click(userMenuPopUp)
+        click(elementByInnerText.params("Выход"))
     }
 
-    fun checkUserFullName(name: String) {
+    fun checkUserFullName(fullName: String) {
         Assert.assertEquals(
-            driver.findElement(By.xpath("//*[@class='namelabel']")).text,
-            name
+            findElement(By.xpath(userFullNameTitle)).text,
+            fullName
         )
     }
+}
+
+typealias Xpath = String
+
+fun Xpath.params(vararg params: String): Xpath {
+    var template = this
+    params.forEachIndexed { index, param ->
+        template = template.replace("%${index + 1}%", param)
+    }
+    return template
 }

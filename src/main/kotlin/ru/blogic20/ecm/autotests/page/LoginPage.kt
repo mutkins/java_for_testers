@@ -11,12 +11,14 @@ import ru.blogic20.ecm.autotests.util.DriverFactory
  */
 
 class LoginPage(driver: WebDriver): WebPage(driver){
+
+    val elementByName = "//*[@name='%1%']"
+
     fun login(login: String, pass: String) {
-        driver.get(Configuration.config.getString("baseUrl"))
-        fillField(login, "//input[@name='username']")
-        fillField(pass, "//input[@name='password']")
-        driver.findElement(By.tagName("button")).click()
-        Thread.sleep(1000)
+        navigateTo(Configuration.config.getString("baseUrl"))
+        fillField(login, elementByName.params("username"))
+        fillField(pass, elementByName.params("password"))
+        click(By.tagName("button"))
     }
 
     fun login(user: User){
