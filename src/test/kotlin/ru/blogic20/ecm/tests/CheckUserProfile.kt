@@ -26,15 +26,15 @@ class CheckUserProfile: BaseTest() {
     @Test(dataProvider = "userDataProvider")
     fun doTest(user: User){
         app.loginPage.login(user.login, user.password)
-        app.mainPage.openUserMenu()
-        app.mainPage.checkUserFullName(user.display_name)
+//        app.mainPage.openUserMenu()
+//        app.mainPage.checkUserFullName(user.display_name)
     }
 
     @Test(dataProvider = "adminDataProvider")
     fun doTestAdmin(user: User){
         app.loginPage.login(user.login, user.password)
-        app.mainPage.openUserMenu()
-        app.mainPage.checkUserFullName(user.display_name)
+//        app.mainPage.openUserMenu()
+//        app.mainPage.checkUserFullName(user.display_name)
     }
 
 

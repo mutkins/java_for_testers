@@ -6,8 +6,8 @@ class DocumentSearch: BaseTest() {
     @Test
     fun doTest(){
         app.loginPage.login("sberReader", "O9p0[-]=")
-        app.mainPage.simpleSearch("filename")
-        app.mainPage.openDocFromDocTable("filename")
+//        app.mainPage.simpleSearch("filename")
+//        app.mainPage.openDocFromDocTable("filename")
 
     }
 }

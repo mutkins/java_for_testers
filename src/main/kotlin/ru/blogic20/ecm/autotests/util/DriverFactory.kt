@@ -7,15 +7,15 @@ import java.time.Duration
 
 object DriverFactory {
 
-    fun getDriver(): WebDriver{
-         val driver = when (System.getProperty("browser")){
-                "firefox"-> FirefoxDriver()
-                "chrome" -> ChromeDriver()
-                else -> FirefoxDriver()
-         }
-
-         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1))
-                driver.manage().window().maximize()
-         return driver
-    }
+//    fun getDriver(): WebDriver{
+//         val driver = when (System.getProperty("browser")){
+//                "firefox"-> FirefoxDriver()
+//                "chrome" -> ChromeDriver()
+//                else -> FirefoxDriver()
+//         }
+//
+//         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1))
+//                driver.manage().window().maximize()
+//         return driver
+//    }
 }

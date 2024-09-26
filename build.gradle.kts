@@ -1,23 +1,30 @@
 plugins {
-    kotlin("jvm") version "1.9.21"
+    kotlin("jvm") version "1.6.10"
     application
 }
 repositories {
     mavenCentral()
-    maven("https://artifactory.blogic.ru/artifactory/libs-release")
+    maven {
+        url = uri("https://artifactory.blogic.ru/artifactory/libs-release")
+        mavenContent {
+        }
+        name = "libs-release"
+    }
 }
 dependencies {
-    implementation ("org.jetbrains.kotlin:kotlin-stdlib:1.9.21")
+    implementation ("org.jetbrains.kotlin:kotlin-stdlib:1.6.10")
     implementation("org.netbeans.external:testng-6.8.1-dist:RELEASE121")
-    implementation("org.seleniumhq.selenium:selenium-java:4.23.0")
+//    implementation("org.seleniumhq.selenium:selenium-java:4.23.0")
     implementation("com.typesafe:config:1.3.0")
     implementation("com.google.code.gson:gson:2.11.0")
-    implementation("io.celebrium:celebrium-web:0.0.8")
+    implementation("io.celebrium:celebrium-web:0.0.8"){
+        exclude(group = "org.jetbrains.kotlin", module = "kotlin-stdlib-jre8")
+    }
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlin {
-        jvmToolchain(11)
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }
 tasks.withType<Test> {
