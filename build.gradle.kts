@@ -4,6 +4,7 @@ plugins {
 }
 repositories {
     mavenCentral()
+    maven("https://artifactory.blogic.ru/artifactory/libs-release")
 }
 dependencies {
     implementation ("org.jetbrains.kotlin:kotlin-stdlib:1.9.21")
@@ -11,6 +12,7 @@ dependencies {
     implementation("org.seleniumhq.selenium:selenium-java:4.23.0")
     implementation("com.typesafe:config:1.3.0")
     implementation("com.google.code.gson:gson:2.11.0")
+    implementation("io.celebrium:celebrium-web:0.0.8")
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
