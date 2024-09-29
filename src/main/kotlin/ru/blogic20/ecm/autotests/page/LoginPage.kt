@@ -26,20 +26,7 @@ class LoginPage(fileName: String):WebPage(fileName){
 
 
     fun login(login: String, pass: String) {
-        io.celebrium.core.config.Configuration.init("data/celebrium_default.conf")
-
-        val gridHubUrl = System.getProperty("grid.url")
-        val capabilities = DesiredCapabilities.firefox()
-        val profile = FirefoxProfile()
-        profile.setPreference("intl.accept_languages", "ru-RU")
-        capabilities.setCapability(FirefoxDriver.PROFILE, profile)
-        val driver = DriverFactory.initDriver(gridHubUrl, capabilities)
-        driver.manage().deleteAllCookies()
-        driver.manage().window().position = Point(0, 0)
-        driver.manage().window().size = Dimension(1920, 1080)
-        driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS)
-        DriverFactory.registerDriver(driver)
-        DriverFactory.getDriver().get(Configuration.config.getString("baseUrl"))
+        //Вынести инициализацию браузера и конфига селебриума куда-то
 
         input()
             .template("Поле")

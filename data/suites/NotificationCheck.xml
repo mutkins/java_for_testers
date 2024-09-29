@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="JAVA FOR TESTERS" verbose="0" >
+    <test name="Проверить уведомления" parallel="methods" thread-count="1">
+        <classes>
+            <class name="ru.blogic20.ecm.tests.NotificationCheck">
+            </class>
+        </classes>
+    </test>
+</suite>

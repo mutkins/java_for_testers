@@ -1,43 +1,45 @@
-//package ru.blogic20.ecm.autotests.page
-//
-//import org.openqa.selenium.By
-//import org.openqa.selenium.Keys
-//import org.openqa.selenium.WebDriver
-//import org.openqa.selenium.support.ui.ExpectedConditions
-//import org.openqa.selenium.support.ui.Wait
-//import org.openqa.selenium.support.ui.WebDriverWait
-//import org.testng.Assert
-//import java.time.Duration
-//import java.util.function.Function
-//
-//
-//class MainPage(driver: WebDriver): WebPage(driver) {
-//
-//    val userMenuPopUp = "//*[@id='HEADER_USER_MENU_POPUP_text']"
-//    val userMenuProfile = "//*[@id='HEADER_USER_MENU_PROFILE_text']"
-//    val notificationsIcon = "//div[@title='Уведомления']"
-//    val notificationsPopUpTitle = "//*[@aria-labelledby='NOTIFICATIONS_BOX_text']//*[@class='alf-menu-group-title']"
-//    val simpleSearchField = "//*[@placeholder='Поиск по таблице' and not(ancestor::div[contains(@class,'hidden1')])]"
-//    val firstRowInDocTable = "//*[@id='arm-documents-grid']//tbody[@tabindex='0']//tr[1]//td[3]//a"
-//    val logoutButton = "//*[.='Выход']"
-//    val userFullNameTitle = "//*[@class='namelabel']"
-//    val elementByInnerText = "//*[.='%1%']"
-//    val elementByName = "//*[@name='%1%']"
-//
-//    fun goToMainPage(){
-//        navigateTo(System.getProperty("baseUrl"))
-//    }
-//
-//    fun openUserMenu() {
-//        click(userMenuPopUp)
-//        click(userMenuProfile)
-//    }
-//    fun notificationCheck(){
-//        click(notificationsIcon)
-//        Assert.assertEquals(
-//            findElement(notificationsPopUpTitle).text,
-//            "Уведомления")
-//    }
+package ru.blogic20.ecm.autotests.page
+
+import io.celebrium.core.test.AssertType
+import io.celebrium.core.test.Asserts
+import io.celebrium.web.page.WebPage
+import org.testng.Assert
+import ru.blogic20.ecm.autotests.datastore.UserStore
+import ru.blogic20.ecm.autotests.model.User
+import java.time.Duration
+import java.util.function.Function
+
+
+class MainPage(fileName: String): WebPage(fileName) {
+
+
+    fun openUserMenu() {
+        click()
+            .template("userMenuPopUp")
+            .title("Клик по кнопке")
+            .errorMessage("Ошибка при нажатии кнопки ")
+            .perform()
+    }
+    fun notificationCheck(){
+        click()
+            .template("notificationsIcon")
+            .title("Клик по кнопке-колокольчик")
+            .errorMessage("Ошибка при нажатии по кнопке-колокольчик")
+            .perform()
+
+        val notificationTitle = text()
+            .template("notificationsPopUpTitle")
+            .title("Получение текста заголовка уведомлений")
+            .timeout(50)
+            .getFirst()
+
+        Asserts.builder()
+            .actual(notificationTitle)
+            .expected("Уведомления")
+            .assertType(AssertType.SOFT)
+            .errorMessage("Значение поля \"$notificationTitle\" не соответствует ожидаемому.")
+            .assertEquals()
+    }
 //    fun simpleSearch(text: String){
 //        fillField(text,simpleSearchField)
 //        findElement(simpleSearchField).sendKeys(Keys.RETURN)
@@ -58,14 +60,4 @@
 //            fullName
 //        )
 //    }
-//}
-//
-//typealias Xpath = String
-//
-//fun Xpath.params(vararg params: String): Xpath {
-//    var template = this
-//    params.forEachIndexed { index, param ->
-//        template = template.replace("%${index + 1}%", param)
-//    }
-//    return template
-//}
+}

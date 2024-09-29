@@ -4,6 +4,7 @@ import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
 import ru.blogic20.ecm.autotests.datastore.UserStore
 import ru.blogic20.ecm.autotests.model.User
+import ru.blogic20.ecm.pages.PageStore
 
 
 class CheckUserProfile: BaseTest() {
@@ -25,14 +26,15 @@ class CheckUserProfile: BaseTest() {
 
     @Test(dataProvider = "userDataProvider")
     fun doTest(user: User){
-        app.loginPage.login(user.login, user.password)
+        PageStore.getLocal().loginPage.login(user.login, user.password)
+//        app.loginPage.login(user.login, user.password)
 //        app.mainPage.openUserMenu()
 //        app.mainPage.checkUserFullName(user.display_name)
     }
 
     @Test(dataProvider = "adminDataProvider")
     fun doTestAdmin(user: User){
-        app.loginPage.login(user.login, user.password)
+        PageStore.getLocal().loginPage.login(user.login, user.password)
 //        app.mainPage.openUserMenu()
 //        app.mainPage.checkUserFullName(user.display_name)
     }

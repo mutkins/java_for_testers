@@ -14,14 +14,7 @@ open class ApplicationManager {
     fun init() {
         println("DRIVER INITIALIZATION")
         println("System.getProperty(browser)=${System.getProperty("browser")}")
-//        driver = when (System.getProperty("browser")){
-//             "firefox"-> FirefoxDriver()
-//            "chrome" -> ChromeDriver()
-//            else -> FirefoxDriver()
-//        }
-//        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5))
-//        driver.manage().window().maximize()
-        this.loginPage = LoginPage("data/page_configurations/LoginPage.conf")
+//        this.loginPage = LoginPage("data/page_configurations/LoginPage.conf")
 //        this.mainPage = MainPage(driver)
     }
 
