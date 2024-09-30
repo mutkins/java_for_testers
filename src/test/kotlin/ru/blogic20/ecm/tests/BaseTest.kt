@@ -29,11 +29,7 @@ open class BaseTest {
         io.celebrium.core.config.Configuration.init("data/celebrium_default.conf")
     }
 
-//    @BeforeMethod
-//    fun setUp() {
-//        app = ApplicationManager()
-//        app.init()
-//    }
+
 
     @BeforeMethod
     fun initWebDriver(){
