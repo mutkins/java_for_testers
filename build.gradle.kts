@@ -13,7 +13,7 @@ repositories {
 }
 dependencies {
     implementation ("org.jetbrains.kotlin:kotlin-stdlib:1.6.10")
-    implementation("org.netbeans.external:testng-6.8.1-dist:RELEASE121")
+    implementation("org.testng:testng:7.5")
 //    implementation("org.seleniumhq.selenium:selenium-java:4.23.0")
     implementation("com.typesafe:config:1.3.0")
     implementation("com.google.code.gson:gson:2.11.0")
@@ -28,12 +28,13 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     }
 }
 tasks.withType<Test> {
-    useTestNG()
+    systemProperties["browser"] = project.findProperty("browser")?: "firefox"
+    systemProperties["stand"] = project.findProperty("stand")?: "244"
+    systemProperties["grid.url"] = project.findProperty("grid.url")?: "http://192.168.129.1:4444/wd/hub"
+
 }
 
 tasks.register<Test>("testFactory") {
-    systemProperties["browser"] = project.findProperty("browser")?: "firefox"
-    systemProperties["stand"] = project.findProperty("stand")?: "244"
 
     useTestNG {
         suites("data/suites/RunTestFactory.xml") // Используем правильные кавычки
@@ -41,13 +42,15 @@ tasks.register<Test>("testFactory") {
 
 }
 tasks.register<Test>("CheckAdminProfile") {
-    systemProperties["browser"] = project.findProperty("browser")?: "firefox"
-    systemProperties["stand"] = project.findProperty("stand")?: "244"
     useTestNG {
         suites("data/suites/CheckAdminProfile.xml") // Используем правильные кавычки
     }
 }
-
+tasks.register<Test>("NC") {
+    useTestNG {
+        suites("data/suites/NotificationCheck.xml") // Используем правильные кавычки
+    }
+}
 
 sourceSets {
     test {
