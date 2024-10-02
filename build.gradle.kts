@@ -1,3 +1,11 @@
+val allureVersion = "2.24.0"
+val aspectJVersion = "1.9.20.1"
+
+val agent: Configuration by configurations.creating {
+    isCanBeConsumed = true
+    isCanBeResolved = true
+}
+
 plugins {
     kotlin("jvm") version "1.6.10"
     application
@@ -20,6 +28,10 @@ dependencies {
     implementation("io.celebrium:celebrium-web:0.0.8"){
         exclude(group = "org.jetbrains.kotlin", module = "kotlin-stdlib-jre8")
     }
+    testImplementation(platform("io.qameta.allure:allure-bom:$allureVersion"))
+    // Add necessary Allure dependencies to dependencies section
+    testImplementation("io.qameta.allure:allure-testng")
+    agent("org.aspectj:aspectjweaver:${aspectJVersion}")
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
@@ -31,6 +43,10 @@ tasks.withType<Test> {
     systemProperties["browser"] = project.findProperty("browser")?: "firefox"
     systemProperties["stand"] = project.findProperty("stand")?: "244"
     systemProperties["grid.url"] = project.findProperty("grid.url")?: "http://192.168.129.1:4444/wd/hub"
+
+    jvmArgs = listOf(
+        "-javaagent:${agent.singleFile}"
+    )
 
 }
 

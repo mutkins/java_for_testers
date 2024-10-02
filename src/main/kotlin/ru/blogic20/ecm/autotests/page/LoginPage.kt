@@ -15,6 +15,8 @@ import org.openqa.selenium.WebDriver
 import org.openqa.selenium.firefox.FirefoxDriver
 import org.openqa.selenium.firefox.FirefoxProfile
 import org.openqa.selenium.remote.DesiredCapabilities
+
+import ru.yandex.qatools.allure.annotations.Step
 import java.util.concurrent.TimeUnit
 
 
@@ -24,10 +26,10 @@ import java.util.concurrent.TimeUnit
 
 class LoginPage(fileName: String):WebPage(fileName){
 
-
+    @Step("Вход с учетными данными \"{0}\"/\"{1}\"")
     fun login(login: String, pass: String) {
         //Вынести инициализацию браузера и конфига селебриума куда-то
-
+        Attachments.attach("Логин на стенд ${Configuration.config.getString("baseUrl")}", AttachmentType.TEXT, "Stand")
         input()
             .template("Поле")
             .parameters("username")

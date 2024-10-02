@@ -6,6 +6,7 @@ import io.celebrium.web.page.WebPage
 import org.testng.Assert
 import ru.blogic20.ecm.autotests.datastore.UserStore
 import ru.blogic20.ecm.autotests.model.User
+import ru.yandex.qatools.allure.annotations.Step
 import java.time.Duration
 import java.util.function.Function
 
@@ -20,6 +21,7 @@ class MainPage(fileName: String): WebPage(fileName) {
             .errorMessage("Ошибка при нажатии кнопки ")
             .perform()
     }
+    @Step("Проверка выпадающего окошка \"Уведомления\"")
     fun notificationCheck(){
         click()
             .template("notificationsIcon")
@@ -35,8 +37,8 @@ class MainPage(fileName: String): WebPage(fileName) {
 
         Asserts.builder()
             .actual(notificationTitle)
-            .expected("Уведомления")
-            .assertType(AssertType.SOFT)
+            .expected("1Уведомления")
+            .assertType(AssertType.BLOCK)
             .errorMessage("Значение поля \"$notificationTitle\" не соответствует ожидаемому.")
             .assertEquals()
     }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="JAVA FOR TESTERS" verbose="0" >
-    <test name="Под всеми пользователями проверить вкладку профиль" parallel="methods" thread-count="1">
+    <test name="Под всеми пользователями проверить вкладку профиль" parallel="methods" thread-count="6">
         <classes>
             <class name="ru.blogic20.ecm.tests.TestFactory">
             </class>
