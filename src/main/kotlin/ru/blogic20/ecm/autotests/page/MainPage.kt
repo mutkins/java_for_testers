@@ -1,46 +1,38 @@
 package ru.blogic20.ecm.autotests.page
 
+import com.microsoft.playwright.Page
 import io.celebrium.core.test.AssertType
-import io.celebrium.core.test.Asserts
 import io.celebrium.web.page.WebPage
 import org.testng.Assert
 import ru.blogic20.ecm.autotests.datastore.UserStore
 import ru.blogic20.ecm.autotests.model.User
+import ru.blogic20.ecm.autotests.util.PlaywrightPageStore
 import ru.yandex.qatools.allure.annotations.Step
 import java.time.Duration
 import java.util.function.Function
 
 
-class MainPage(fileName: String): WebPage(fileName) {
+class MainPage(val page: Page){
 
 
     fun openUserMenu() {
-        click()
-            .template("userMenuPopUp")
-            .title("Клик по кнопке")
-            .errorMessage("Ошибка при нажатии кнопки ")
-            .perform()
+
+        page
+            .click("//*[@id='HEADER_USER_MENU_POPUP_text']")
     }
     @Step("Проверка выпадающего окошка \"Уведомления\"")
     fun notificationCheck(){
-        click()
-            .template("notificationsIcon")
-            .title("Клик по кнопке-колокольчик")
-            .errorMessage("Ошибка при нажатии по кнопке-колокольчик")
-            .perform()
 
-        val notificationTitle = text()
-            .template("notificationsPopUpTitle")
-            .title("Получение текста заголовка уведомлений")
-            .timeout(50)
-            .getFirst()
+        page
+            .click("//div[@title='Уведомления']")
 
-        Asserts.builder()
-            .actual(notificationTitle)
-            .expected("1Уведомления")
-            .assertType(AssertType.BLOCK)
-            .errorMessage("Значение поля \"$notificationTitle\" не соответствует ожидаемому.")
-            .assertEquals()
+        val notificationTitle =
+            page
+                .locator("//*[@aria-labelledby='NOTIFICATIONS_BOX_text']//*[@class='alf-menu-group-title']")
+                .textContent()
+
+        Assert.assertEquals(notificationTitle, "Уведомления")
+
     }
 //    fun simpleSearch(text: String){
 //        fillField(text,simpleSearchField)
@@ -51,15 +43,14 @@ class MainPage(fileName: String): WebPage(fileName) {
 //        click(firstRowInDocTable)
 //    }
 //
-//    fun logout(){
-//        click(userMenuPopUp)
-//        click(elementByInnerText.params("Выход"))
-//    }
-//
-//    fun checkUserFullName(fullName: String) {
-//        Assert.assertEquals(
-//            findElement(By.xpath(userFullNameTitle)).text,
-//            fullName
-//        )
-//    }
+    fun logout(){
+        page.click("//*[@id='HEADER_USER_MENU_POPUP_text']")
+        page.click("//*[.='Выход']")
+    }
+
+    fun checkUserFullName(fullName: String) {
+
+        val text = page.textContent("//*[@class='namelabel']")
+        Assert.assertEquals(text, fullName)
+    }
 }

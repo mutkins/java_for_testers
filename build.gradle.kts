@@ -20,6 +20,7 @@ repositories {
     }
 }
 dependencies {
+    implementation("com.microsoft.playwright:playwright:1.43.0")
     implementation ("org.jetbrains.kotlin:kotlin-stdlib:1.6.10")
     implementation("org.testng:testng:7.5")
 //    implementation("org.seleniumhq.selenium:selenium-java:4.23.0")
@@ -42,7 +43,7 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
 tasks.withType<Test> {
     systemProperties["browser"] = project.findProperty("browser")?: "firefox"
     systemProperties["stand"] = project.findProperty("stand")?: "244"
-    systemProperties["grid.url"] = project.findProperty("grid.url")?: "http://192.168.129.1:4444/wd/hub"
+    systemProperties["grid.url"] = project.findProperty("grid.url")?: "http://192.168.80.1:4444/wd/hub"
 
     jvmArgs = listOf(
         "-javaagent:${agent.singleFile}"
@@ -62,7 +63,7 @@ tasks.register<Test>("CheckAdminProfile") {
         suites("data/suites/CheckAdminProfile.xml") // Используем правильные кавычки
     }
 }
-tasks.register<Test>("NC") {
+tasks.register<Test>("NotificationCheck") {
     useTestNG {
         suites("data/suites/NotificationCheck.xml") // Используем правильные кавычки
     }
