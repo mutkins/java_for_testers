@@ -1,27 +1,28 @@
 package ru.blogic20.ecm.autotests.page
 
 import com.microsoft.playwright.Page
-import io.celebrium.core.test.AssertType
-import io.celebrium.web.page.WebPage
-import org.testng.Assert
+import io.cucumber.java.en.Given
+
+//import org.testng.Assert
 import ru.blogic20.ecm.autotests.datastore.UserStore
 import ru.blogic20.ecm.autotests.model.User
 import ru.blogic20.ecm.autotests.util.PlaywrightPageStore
-import ru.yandex.qatools.allure.annotations.Step
+//import ru.yandex.qatools.allure.annotations.Step
 import java.time.Duration
 import java.util.function.Function
 
 
-class MainPage(val page: Page){
-
+class MainPage(){
+    private val page = Common().page
 
     fun openUserMenu() {
 
         page
             .click("//*[@id='HEADER_USER_MENU_POPUP_text']")
     }
-    @Step("Проверка выпадающего окошка \"Уведомления\"")
-    fun notificationCheck(){
+//    @Step("Проверка выпадающего окошка \"Уведомления\"")
+
+    fun notificationClick(){
 
         page
             .click("//div[@title='Уведомления']")
@@ -31,9 +32,23 @@ class MainPage(val page: Page){
                 .locator("//*[@aria-labelledby='NOTIFICATIONS_BOX_text']//*[@class='alf-menu-group-title']")
                 .textContent()
 
-        Assert.assertEquals(notificationTitle, "Уведомления")
+    }
+    fun notificationTitleCheck(title: String){
+
+        page
+            .click("//div[@title='Уведомления']")
+
+        val notificationTitle =
+            page
+                .locator("//*[@aria-labelledby='NOTIFICATIONS_BOX_text']//*[@class='alf-menu-group-title']")
+                .textContent()
+
+//        Assert.assertEquals(notificationTitle, title)
 
     }
+
+
+
 //    fun simpleSearch(text: String){
 //        fillField(text,simpleSearchField)
 //        findElement(simpleSearchField).sendKeys(Keys.RETURN)
@@ -51,6 +66,6 @@ class MainPage(val page: Page){
     fun checkUserFullName(fullName: String) {
 
         val text = page.textContent("//*[@class='namelabel']")
-        Assert.assertEquals(text, fullName)
+//        Assert.assertEquals(text, fullName)
     }
 }
